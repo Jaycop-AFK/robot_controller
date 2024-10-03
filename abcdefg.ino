@@ -44,7 +44,7 @@ const int numLeds = sizeof(ledSpeed) / sizeof(ledSpeed[0]);
 
 
 unsigned long lastSendTime = 0;
-const unsigned long sendInterval = 30;
+const unsigned long sendInterval = 50;
 
 
 int prevJoystickValueXRight = -1;
@@ -78,20 +78,20 @@ void setup() {
     pinMode(ledSpeed[i], OUTPUT);
   }
 
-  pinMode(BtnL_Left, INPUT_PULLUP);
-  pinMode(BtnL_Bottom, INPUT_PULLUP);
-  pinMode(BtnL_Top, INPUT_PULLUP);
-  pinMode(BtnR_Right, INPUT_PULLUP);
+  // pinMode(BtnL_Left, INPUT_PULLUP);
+  // pinMode(BtnL_Bottom, INPUT_PULLUP);
+  // pinMode(BtnL_Top, INPUT_PULLUP);
+  // pinMode(BtnR_Right, INPUT_PULLUP);
 
 
-  pinMode(BtnR_Left, INPUT_PULLUP);
-  pinMode(BtnR_Bottom, INPUT_PULLUP);
-  pinMode(BtnR_Top, INPUT_PULLUP);
-  pinMode(BtnR_Right, INPUT_PULLUP);
+  // pinMode(BtnR_Left, INPUT_PULLUP);
+  // pinMode(BtnR_Bottom, INPUT_PULLUP);
+  // pinMode(BtnR_Top, INPUT_PULLUP);
+  // pinMode(BtnR_Right, INPUT_PULLUP);
  
  
-  pinMode(BtnM_Left, INPUT_PULLUP);
-  pinMode(BtnM_Right, INPUT_PULLUP);
+  // pinMode(BtnM_Left, INPUT_PULLUP);
+  // pinMode(BtnM_Right, INPUT_PULLUP);
 
 
 
@@ -108,7 +108,7 @@ void setup() {
   Serial.println(WiFi.localIP());
 
 
-  webSocket.begin("172.20.10.2", 8888, "/");
+  webSocket.begin("172.20.10.5", 8888, "/");
   webSocket.onEvent(webSocketEvent);
   webSocket.setReconnectInterval(5000);
 }
@@ -137,7 +137,7 @@ void loop() {
 
   if (digitalRead(speedDown) == LOW && lastButtonspeedDown == HIGH) {
     currentSpeed = max(currentSpeed - 100, 100);
-    ledSpeedShow(currentSpeed == 100 ? 1 : currentSpeed == 200 ? 2
+    ledSpeedShow(currentSpeed == 100 ? 1 : currentSpeed == 155 ? 2   
                                                                : 3);
     sendCommand(0x05);  // Send Speed Down command (0x05)
   }
@@ -145,50 +145,50 @@ void loop() {
 
 
 
-  if (digitalRead(BtnL_Left) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x06);
-  }
-  lastButtonClick = digitalRead(BtnL_Left);
-  if (digitalRead(BtnL_Top) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x07);
-  }
-  lastButtonClick = digitalRead(BtnL_Top);
-  if (digitalRead(BtnL_Bottom) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x08);
-  }
-  lastButtonClick = digitalRead(BtnL_Bottom);
-  if (digitalRead(BtnL_Right) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x09);
-  }
-  lastButtonClick = digitalRead(BtnL_Right);
+  // if (digitalRead(BtnL_Left) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x06);
+  // }
+  // lastButtonClick = digitalRead(BtnL_Left);
+  // if (digitalRead(BtnL_Top) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x07);
+  // }
+  // lastButtonClick = digitalRead(BtnL_Top);
+  // if (digitalRead(BtnL_Bottom) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x08);
+  // }
+  // lastButtonClick = digitalRead(BtnL_Bottom);
+  // if (digitalRead(BtnL_Right) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x09);
+  // }
+  // lastButtonClick = digitalRead(BtnL_Right);
 
 
-    if (digitalRead(BtnR_Left) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x10);
-  }
-  lastButtonClick = digitalRead(BtnR_Left);
-  if (digitalRead(BtnR_Top) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x11);
-  }
-  lastButtonClick = digitalRead(BtnR_Top);
-  if (digitalRead(BtnR_Bottom) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x12);
-  }
-  lastButtonClick = digitalRead(BtnR_Bottom);
-  if (digitalRead(BtnR_Right) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x13);
-  }
-  lastButtonClick = digitalRead(BtnR_Right);
+  //   if (digitalRead(BtnR_Left) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x10);
+  // }
+  // lastButtonClick = digitalRead(BtnR_Left);
+  // if (digitalRead(BtnR_Top) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x11);
+  // }
+  // lastButtonClick = digitalRead(BtnR_Top);
+  // if (digitalRead(BtnR_Bottom) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x12);
+  // }
+  // lastButtonClick = digitalRead(BtnR_Bottom);
+  // if (digitalRead(BtnR_Right) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x13);
+  // }
+  // lastButtonClick = digitalRead(BtnR_Right);
   
   
-  if (digitalRead(BtnM_Left) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x14);
-  }
-  lastButtonClick = digitalRead(BtnM_Left);
-  if (digitalRead(BtnM_Right) == LOW && lastButtonClick == HIGH) {
-    sendCommand(0x15);
-  }
-  lastButtonClick = digitalRead(BtnM_Right);
+  // if (digitalRead(BtnM_Left) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x14);
+  // }
+  // lastButtonClick = digitalRead(BtnM_Left);
+  // if (digitalRead(BtnM_Right) == LOW && lastButtonClick == HIGH) {
+  //   sendCommand(0x15);
+  // }
+  // lastButtonClick = digitalRead(BtnM_Right);
 
 
   if (currentTime - lastSendTime >= sendInterval) {
